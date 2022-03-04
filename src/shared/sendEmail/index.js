@@ -4,7 +4,7 @@ async function send_email(transporter, today) {
             {
                 from: process.env.SMTP_SENDER,
                 to: process.env.SMTP_RECEIVER,
-                subject: "HydraFacial - Daily Milestone Report - Omni Logistics",
+                subject: process.env.stage + "-HydraFacial Daily Milestone Report Omni Logistics",
                 text: "Please check the attachment for report",
                 html: "<b>Please check the attachment for report</b>",
                 attachments: [

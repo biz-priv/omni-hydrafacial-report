@@ -1,7 +1,7 @@
 CustomReportForHydraFacial:
   handler: src/hydraFacialReport/index.handler
   timeout: 60
-  memorySize: 512 
+  memorySize: 512
   layers:
     - { Ref: CommonLibsLambdaLayer }  
   environment:
