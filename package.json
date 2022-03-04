@@ -1,0 +1,21 @@
+{
+  "name": "omni-hydrafacial-report",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.930.0",
+    "dynamodb": "^1.3.0",
+    "nodemailer": "^6.7.2",
+    "objects-to-csv": "^1.3.6",
+    "pg": "^8.7.1",
+    "serverless": "^2.21.1",
+    "serverless-offline": "^8.5.0",
+    "serverless-prune-plugin": "^2.0.1"
+  }
+}
