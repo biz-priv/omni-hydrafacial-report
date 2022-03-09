@@ -1,7 +1,7 @@
 const { send_response } = require('../shared/utils/responses');
 const { client } = require("../shared/dbConnectivity/index");
 const { transporter } = require('../shared/smtp/index');
-const { send_email } = require('../shared/sendEmail/index');
+const { send_email, send_email_for_no_report } = require('../shared/sendEmail/index');
 const { handleItems } = require('../shared/dynamoDb/index');
 const { filterReportData } = require('../shared/filterReportData/index');
 const { createCSV } = require('../shared/csvOperations/index')
@@ -73,7 +73,7 @@ module.exports.handler = async (event) => {
             // sending email 
             await send_email(transporter, today);
         }else{
-            console.info("All the shipments are Delivered, No Rows to Send Report")
+            await send_email_for_no_report(transporter);
         }
         
         return send_response(200);

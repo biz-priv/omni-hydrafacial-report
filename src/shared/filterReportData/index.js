@@ -6,8 +6,11 @@ async function filterReportData(result, tableName) {
         let reportData = [];
         for (let key in result) {
             result[key]['scheduled datetime'] = JSON.stringify(result[key]['scheduled datetime']);
+            result[key]['scheduled datetime'] = `${(result[key]['scheduled datetime']).split('T')[0]}"`;
             result[key]['pod date time'] = JSON.stringify(result[key]['pod date time']);
+            result[key]['pod date time'] = `${(result[key]['pod date time']).split('T')[0]}"`;
             result[key]['shipment datetime'] = JSON.stringify(result[key]['shipment datetime']);
+            result[key]['shipment datetime'] = `${(result[key]['shipment datetime']).split('T')[0]}"`
             if (result[key]['order status'] == "DEL") {
 
                 let shipment = await scanTableData(tableName, result[key]['file_nbr']);
