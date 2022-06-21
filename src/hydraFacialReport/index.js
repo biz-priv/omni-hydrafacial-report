@@ -14,10 +14,10 @@ module.exports.handler = async (event) => {
         await client.connect();
 
         // Query For Fetching Shipment Details
-        let sqlQuery = `select 
+        let sqlQuery = `select
         s.file_nbr ,
-        house_bill_nbr "AirBill", 
-        cast(ready_date as date) "Shipment DateTime", 
+        house_bill_nbr "AirBill",
+        cast(ready_date as date) "Shipment DateTime",
         m.order_Status "Order Status",
         pieces "Total Pieces",
         shipper_name "Shipper Name",
@@ -30,31 +30,37 @@ module.exports.handler = async (event) => {
         cast(schd_delv_date as date) "Scheduled DateTime",
         case when m.order_Status = 'DEL' then event_date else null end  as "POD Date Time"
         from shipment_info s
-        join 
+        join
         (select b.* from
-        (select file_nbr ,max(event_seq_nbr)event_seq_nbr from shipment_milestone sm 
+        (select file_nbr ,max(event_seq_nbr)event_seq_nbr from shipment_milestone sm
         where source_system = 'WT'
         and is_custompublic = 'Y'
         group by file_nbr ) a join shipment_milestone b
-        on a.file_nbr = b.file_nbr 
-        and a.event_seq_nbr = b.event_seq_nbr 
+        on a.file_nbr = b.file_nbr
+        and a.event_seq_nbr = b.event_seq_nbr
         )m
-        on s.source_system = m.source_system 
-        and s.file_nbr = m.file_nbr 
-        left outer join 
-        shipment_ref r 
-        on s.source_system = r.source_system 
-        and s.file_nbr = r.file_nbr 
+        on s.source_system = m.source_system
+        and s.file_nbr = m.file_nbr
+        left outer join
+        shipment_ref r
+        on s.source_system = r.source_system
+        and s.file_nbr = r.file_nbr
         and r.customer_type = 'S'
         where (bill_to_nbr = '19911' or cntrl_cust_nbr = '19911')
-        and cast(s.ready_date as date) >= '2022-01-01'`;
+        and cast(s.ready_date as date) >= '2022-01-01'
+        and s.current_status <> 'CAN'`;
 
         // executing query to db
-        const response = await client.query(sqlQuery);
-        let result = response['rows'];
         
+        const response = await client.query(sqlQuery);
+        
+        let result = response['rows'];
+        console.info("Total result Length : ",result.length);
+
         // separting the data for creating report and for inserting into dynamoDb 
         const [reportData, dbRows] = await filterReportData(result, tableName);
+        console.info("reportData length : ", reportData.length);
+        console.info("DbRows : ", dbRows.length);
         // creating csv from report Data 
         if (reportData != false) {
             let today = await createCSV(reportData);
@@ -74,12 +80,12 @@ module.exports.handler = async (event) => {
             await send_email(transporter, today);
         }else{
             await send_email_for_no_report(transporter);
+            console.info("All the shipments are Delivered, No Rows to Send Report")
         }
-        
+
         return send_response(200);
     } catch (error) {
         console.error("Error : \n", error);
         return send_response(400, error);
     }
 }
-
