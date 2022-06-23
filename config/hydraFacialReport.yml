@@ -36,7 +36,7 @@ CustomReportForHydraFacial:
       - ${ssm:/omni-dw/${self:provider.stage}/lambda/subnetA}
       
   events:
-    - schedule: cron(0 23 * * ? *)
+    - schedule: cron(0 17,22 * * ? *)
     # - http:
     #     path: hydrafacialReport
     #     method: post
