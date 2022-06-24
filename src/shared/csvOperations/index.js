@@ -7,7 +7,7 @@ async function createCSV(reportData) {
         let dd = String(today.getDate()).padStart(2, '0');
         let mm = String(today.getMonth() + 1).padStart(2, '0');
         let yyyy = today.getFullYear();
-        today = mm + dd + yyyy;
+        today = dd + mm + yyyy;
         await csv.toDisk('/tmp/data.csv');
         return today;
     } catch (error) {

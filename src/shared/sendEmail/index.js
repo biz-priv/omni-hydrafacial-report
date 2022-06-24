@@ -9,7 +9,7 @@ async function send_email(transporter, today) {
                 html: "<b>Please check the attachment for report</b>",
                 attachments: [
                     {
-                        filename: 'Omni_hydraFacial_report_' + today + '.csv',
+                        filename: 'OmniTrackingReport_' + today + '.csv',
                         path: '/tmp/data.csv'
                     },
                 ],
