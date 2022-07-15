@@ -38,6 +38,6 @@ CustomReportForHydraFacial:
   events:
     - schedule: cron(0 17,22 * * ? *)
     # - http:
-    #     path: hydrafacialReport
-    #     method: post
+    #     path: /
+    #     method: get
     #     cors: true
