@@ -11,32 +11,37 @@ async function filterReportData(result, tableName) {
             result[key]['pod date time'] = `${(result[key]['pod date time']).split('T')[0]}"`;
             result[key]['shipment datetime'] = JSON.stringify(result[key]['shipment datetime']);
             result[key]['shipment datetime'] = `${(result[key]['shipment datetime']).split('T')[0]}"`
+            let row = result[key];
             if (result[key]['order status'] == "DEL") {
                 let shipment = await scanTableData(tableName, result[key]['file_nbr']);
                 if (shipment.length) {
                     if(shipment[0].sent_count != 3){
-                        let row = result[key];
                         reportData.push(row);
                         result[key]['sent_count'] = shipment[0].sent_count + 1
-                        let updateSentCount = resultData[key]
+                        let updateSentCount = result[key]
                         let rowObj = {
                             PutRequest: {
                                 Item: updateSentCount
                             }
                         }
-                        dbRows.push(rowObj);
+                        let checkFileNumber = dbRows.find((x) => x.PutRequest.Item.file_nbr == result[key]['file_nbr']);
+                        if(checkFileNumber == undefined){
+                            dbRows.push(rowObj);
+                        }
                     }
                 }else {
-                        let row = result[key];
                         reportData.push(row);
-                        result[key]['sent_count'] = 0
-                        let updateSentCount = resultData[key]
+                        result[key]['sent_count'] = 1
+                        let updateSentCount = result[key]
                         let rowObj = {
                             PutRequest: {
                                 Item: updateSentCount
                             }
                         }
-                        dbRows.push(rowObj);
+                        let checkResult = dbRows.find((x) => x.PutRequest.Item.file_nbr == result[key]['file_nbr']);
+                        if(checkResult == undefined){
+                            dbRows.push(rowObj);
+                        }
                 }
             } else {
                 reportData.push(result[key]);

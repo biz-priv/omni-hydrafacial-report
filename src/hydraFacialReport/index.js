@@ -58,7 +58,8 @@ module.exports.handler = async (event) => {
         console.info("Total result Length : ",result.length);
 
         // separting the data for creating report and for inserting into dynamoDb 
-        const [reportData, dbRows] = await filterReportData(result, tableName);
+        const [report, dbRows] = await filterReportData(result, tableName);
+        const reportData = report.map(({sent_count,...rest}) => ({...rest}));
         console.info("reportData length : ", reportData.length);
         console.info("DbRows : ", dbRows.length);
         // creating csv from report Data 
