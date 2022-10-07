@@ -7,7 +7,7 @@ pipeline {
                     echo "GIT_BRANCH: ${GIT_BRANCH}"
                     echo sh(script: 'env|sort', returnStdout: true)
                     if ("${GIT_BRANCH}".contains("feature") || "${GIT_BRANCH}".contains("bugfix") || "${GIT_BRANCH}".contains("dev")) {
-                        env.ENVIRONMENT=env.getProperty("environment_dev")
+                        env.ENVIRONMENT=env.getProperty("environment_develop")
                     } else if ("${GIT_BRANCH}".contains("master") || "${GIT_BRANCH}".contains("hotfix")){
                         env.ENVIRONMENT=env.getProperty("environment_prod")
                     }
