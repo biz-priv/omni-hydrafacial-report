@@ -22,9 +22,9 @@ CustomReportForHydraFacial:
 
   package:
     patterns:
-        - '!**/*'
-        - 'src/hydraFacialReport/**'
-        - 'src/shared/**'
+      - '!**/*'
+      - 'src/hydraFacialReport/**'
+      - 'src/shared/**'
   vpc:
     securityGroupIds:
       - ${ssm:/omni-dw/${self:provider.stage}/lambda/sgId}
