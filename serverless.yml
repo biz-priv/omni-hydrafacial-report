@@ -16,22 +16,16 @@ custom:
     automatic: true
     number: 3
 
-package:
-  individually: true
-  excludeDevDependencies: false
-  exclude:
-    - 'node_modules/**'
-    - 'config/**'
-    - 'src/**'
-    - '*.*'
-
 functions:
     - ${file(config/hydraFacialReport.yml)}
 
 plugins:
   - serverless-offline
   - serverless-prune-plugin
-  
+
+package:
+  individually: true
+
 layers:
   commonLibs:
     path: lib
