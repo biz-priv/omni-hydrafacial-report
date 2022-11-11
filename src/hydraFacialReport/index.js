@@ -32,12 +32,12 @@ module.exports.handler = async (event) => {
         from shipment_info s
         join
         (select b.* from
-        (select file_nbr ,max(event_seq_nbr)event_seq_nbr from shipment_milestone sm
+        (select file_nbr ,max(event_date)event_date from shipment_milestone sm
         where source_system = 'WT'
         and is_custompublic = 'Y'
         group by file_nbr ) a join shipment_milestone b
         on a.file_nbr = b.file_nbr
-        and a.event_seq_nbr = b.event_seq_nbr
+        and a.event_date = b.event_date
         )m
         on s.source_system = m.source_system
         and s.file_nbr = m.file_nbr
