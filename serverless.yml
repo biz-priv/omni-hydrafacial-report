@@ -4,7 +4,7 @@ provider:
   name: aws
   runtime: nodejs14.x
   region: ${opt:region, 'us-east-1'}
-  stage: ${opt:stage, 'prod'}
+  stage: ${opt:stage, 'dev'}
   memorySize: 128 
   timeout: 60
   role : ${ssm:/omni-dw/${self:provider.stage}/lambda/role}
@@ -35,8 +35,6 @@ plugins:
 layers:
   commonLibs:
     path: lib
+    name: omni-hydrafacial-layer-${self:provider.stage}
     compatibleRuntimes:
       - nodejs14.x
-    package: 
-      include:
-        - node_modules/**
