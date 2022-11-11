@@ -1,3 +1,3 @@
-# omni-dw-hydrafacial-report
+# omni-hydrafacial-report
 
-hydrafacial report
+Lambda to send the report to the distribution list
