@@ -1,3 +1,10 @@
+/*
+* File: src\shared\dynamoDb\index.js
+* Project: Omni-hydrafacial-report
+* Author: Bizcloud Experts
+* Date: 2022-03-04
+* Confidential and Proprietary
+*/
 const AWS = require("aws-sdk");
 
 /* insert record in table */

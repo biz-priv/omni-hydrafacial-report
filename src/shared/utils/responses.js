@@ -1,4 +1,11 @@
 // send response
+/*
+* File: src\shared\utils\responses.js
+* Project: Omni-hydrafacial-report
+* Author: Bizcloud Experts
+* Date: 2022-03-04
+* Confidential and Proprietary
+*/
 function send_response(http_code, resp = null) {
     var resonseData;
     if (resp) {

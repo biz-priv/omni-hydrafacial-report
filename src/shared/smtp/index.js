@@ -1,3 +1,10 @@
+/*
+* File: src\shared\smtp\index.js
+* Project: Omni-hydrafacial-report
+* Author: Bizcloud Experts
+* Date: 2022-03-04
+* Confidential and Proprietary
+*/
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
