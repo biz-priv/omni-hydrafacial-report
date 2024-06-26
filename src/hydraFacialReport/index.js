@@ -1,3 +1,10 @@
+/*
+* File: src\hydraFacialReport\index.js
+* Project: Omni-hydrafacial-report
+* Author: Bizcloud Experts
+* Date: 2022-11-12
+* Confidential and Proprietary
+*/
 const { send_response } = require('../shared/utils/responses');
 const { client } = require("../shared/dbConnectivity/index");
 const { transporter } = require('../shared/smtp/index');

@@ -3,6 +3,8 @@ CustomReportForHydraFacial:
   name: omni-hydrafacial-report-${self:provider.stage}
   timeout: 30
   memorySize: 512
+  tags:
+    Name : hydrafacial-report
   layers:
     - { Ref: CommonLibsLambdaLayer } 
   environment:
